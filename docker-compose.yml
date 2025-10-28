@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: eshop_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+
+  app:
+    build: .
+    ports:
+      - "8501:8501"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
